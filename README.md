@@ -22,6 +22,9 @@ The system integrates pretrained models to process different input formats and g
 
 ![Architecture](./Architecture.png)
 
+Specification Document - [here](./Specification_Documentation.pdf)
+PPT Slides - [here](./HackathonPPT.pptx)
+
 ### 1. Input Layer
 
 - **Text Input:** Accepts text files (.txt, .pdf, .docx) for summarization.
