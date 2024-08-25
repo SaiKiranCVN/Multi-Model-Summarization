@@ -13,6 +13,7 @@ from text_summarizer import TextSummarizer
 # Video summarizer (handles frame extraction and audio extraction)
 class VideoSummarizer(Summarizer, metaclass=SingletonABCMeta):
     def __init__(self):
+        torch.cuda.empty_cache() 
         if not hasattr(self, 'initialized'):
             self.processor = CLIPProcessor.from_pretrained("openai/clip-vit-base-patch32")
             self.model = CLIPModel.from_pretrained("openai/clip-vit-base-patch32").to(Summarizer.device)
@@ -52,6 +53,7 @@ class VideoSummarizer(Summarizer, metaclass=SingletonABCMeta):
         pil_images = self.frames_to_pil(frames)
 
         inputs = self.processor(images=pil_images, return_tensors="pt", padding=True)
+        inputs = {k: v.to(self.device) for k, v in inputs.items()}   # Move inputs to the same device as the model
         with torch.no_grad():
             visual_features = self.model.get_image_features(**inputs)
 
