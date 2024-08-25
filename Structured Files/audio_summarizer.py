@@ -9,6 +9,7 @@ from text_summarizer import TextSummarizer
 # Audio summarizer (assuming you have extracted the audio as text using Speech-to-Text)
 class AudioSummarizer(Summarizer, metaclass=SingletonABCMeta):
     def __init__(self, model_name="openai/whisper-base"):
+        torch.cuda.empty_cache() 
         if not hasattr(self, 'initialized'):
             self.processor = WhisperProcessor.from_pretrained(model_name)
             self.model = WhisperForConditionalGeneration.from_pretrained(model_name).to(Summarizer.device)
