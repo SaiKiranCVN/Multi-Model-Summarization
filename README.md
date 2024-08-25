@@ -56,9 +56,9 @@ The system integrates pretrained models to process different input formats and g
 
 For personalization, we can adjust the summarization ratio or the max number of characters for summarization according to the user's preferance.
 
-## Demo
+## Demo Video
 
-[Demo Video](./Demo.mp4)
+[Demo Video](https://drive.google.com/file/d/1PO27e7SrSF0zJEnfnl9YqR_HOC1FZ2o8/view?usp=sharing)
 
 ## Conclusion
 
