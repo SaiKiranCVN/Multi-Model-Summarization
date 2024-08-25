@@ -8,6 +8,7 @@ from summarizer import Summarizer, SingletonABCMeta
 # Text summarizer for plain text, PDF, DOCX
 class TextSummarizer(Summarizer, metaclass=SingletonABCMeta):
     def __init__(self, model_name="sshleifer/distilbart-cnn-12-6"):
+        torch.cuda.empty_cache() 
         if not hasattr(self, 'initialized'):
             self.tokenizer = BartTokenizer.from_pretrained(model_name)
             self.model = BartForConditionalGeneration.from_pretrained(model_name).to(Summarizer.device)
@@ -42,7 +43,7 @@ class TextSummarizer(Summarizer, metaclass=SingletonABCMeta):
         return chunks
     # Function to summarize a single chunk
     def summarize_chunk(self,text, max_length=200, min_length=50):
-        inputs = self.tokenizer.encode("summarize: " + text, return_tensors="pt", max_length=1024, truncation=True)
+        inputs = self.tokenizer.encode("summarize: " + text, return_tensors="pt", max_length=1024, truncation=True).to(Summarizer.device) 
         summary_ids = self.model.generate(
             inputs,
             max_length=max_length,
